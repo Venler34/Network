@@ -1,0 +1,41 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <span style="display: none" id="currentUser">
+        {{ user.username }}
+    </span>
+    <div id="allposts">
+        <h1>All Post</h1>
+    </div>
+    <div id="profile">
+        <h1 id="username"></h1>
+        <h5 id="profileFollowers"></h5>
+        <h5 id="profileFollowing"></h5>
+        <div id="followButton"></div>
+        <div id="posts"></div>
+    </div>
+
+    <div id="following">
+        <!-- {% for user in user.following.all %}
+            {% for post in user.posts.all %}
+                <div>
+                    <h4><a href="{% url 'viewProfile' username=post.owner.username %}">{{ post.owner.username }}</a></h4>
+                    <p>{{ post.content }}</p>
+                    <p>Created: {{ post.created }}</p>
+                    {% if post.likes != null %}
+                        <p>Likes: {{ post.likes.count }}</p>
+                    {% else %}
+                        <p>Likes: 0</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+            {% empty %}
+                <h4>You aren't following anyone</h4>
+        {% endfor %} -->
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'network/script.js' %}"></script>
+{% endblock %}

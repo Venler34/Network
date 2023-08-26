@@ -1,0 +1,37 @@
+{% extends "network/layout.html" %}
+{% load static %}
+
+{% block body %}
+    <div id="profile">
+        <h1>{{ owner.username }}</h1>
+        <h5>Followers {{ owner.followers.all.count }}</h5>
+        <h5>Following {{ owner.following.all.count }}</h5>
+        
+        {% if user.is_authenticated and user.username != owner.username %}
+            <form action="{% url 'viewProfile' username=owner.username %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="user" value="{{ user.username }}">
+                {% if owner in user.following.all %}
+                    <input type="submit" value="Unfollow">
+                {% else %}
+                    <input type="submit" value="Follow">
+                {% endif %}
+            </form>
+        {% endif %}
+        {% for post in owner.posts.all %}
+            <div>
+                <h4><a href="{% url 'viewProfile' username=owner.username%}">{{ post.owner.username }}</a></h4>
+                <p>{{ post.content }}</p>
+                <p>Created: {{ post.created }}</p>
+                {% if post.likes != null %}
+                    <p>Likes: {{ post.likes.count }}</p>
+                {% else %}
+                    <p>Likes: 0</p>
+                {% endif %}
+                <p>Comment</p>
+            </div>
+        {% empty %}
+            <div>No Posts</div>
+        {% endfor %}
+    </div>
+{% endblock %}

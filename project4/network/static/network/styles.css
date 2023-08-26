@@ -1,0 +1,12 @@
+body {
+    margin: 0px;
+}
+
+.body {
+    padding: 5px;
+}
+
+#allposts > * {
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
